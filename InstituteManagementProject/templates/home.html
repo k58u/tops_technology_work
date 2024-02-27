@@ -1,0 +1,12 @@
+{% extends 'adminnavbar.html' %}
+{% block content %}
+{% load static %}
+<link href="{% static 'css/home.css' %}" rel="stylesheet">
+
+<div class="banner-card">
+<img src="{% static 'images/home.jpg' %}">
+    <div class="banner-text">
+    <h2 align="center">Welcome to {{data}} Home Page </h2>
+    </div>
+</div>
+{% endblock %}
