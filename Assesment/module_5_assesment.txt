@@ -1,0 +1,140 @@
+Creating a Tables:
+
+CREATE TABLE Bank (
+    branch_id int primary key,
+    branch_name varchar(255),
+    branch_city varchar(255)
+);
+
+CREATE TABLE Account_Holder (
+    account_holder_id INT PRIMARY KEY,
+    account_no VARCHAR(20),
+    account_holder_name VARCHAR(255),
+    city VARCHAR(255),
+    contact VARCHAR(20),
+    date_of_account_created DATE,
+    account_status VARCHAR(20),
+    account_type VARCHAR(50),
+    balance DECIMAL(10, 2)
+);
+
+CREATE TABLE Loan (
+    loan_no INT PRIMARY KEY,
+    branch_id INT,
+    account_holder_id INT,
+    loan_amount DECIMAL(10, 2),
+    loan_type VARCHAR(50),
+    FOREIGN KEY (branch_id) REFERENCES Bank(branch_id),
+    FOREIGN KEY (account_holder_id) REFERENCES Account_Holder(account_holder_id)
+);
+
+
+
+Inserting values into the tables :
+
+ INSERT INTO Bank (branch_id, branch_name, branch_city) VALUES
+    ->    (1, 'Kumbhriya', 'Surat'),
+    ->    (2,'Parvat patiya','Surat'),
+    ->    (3,'Maninagar','Ahedabas'),
+    ->    (4,'Bopal','Ahmedabad');
+
+INSERT INTO Account_Holder (account_holder_id, account_no, account_holder_name, city, contact, date_of_account_created, account_status, account_type, balance) VALUES
+    -> (1, '25001', 'Kaushik','Surat', '1234567890', '2023-07-20', 'active', 'savings', 50000.00),
+    -> (2, '25002', 'Neel','Ahmedabad', '1234567891', '2023-05-20', 'active', 'Current', 15000.00),
+    -> (3, '25003', 'Dhrumil','Ahmedabad', '1234567881', '2023-06-30', 'active', 'Saving', 100000.00),
+    -> (4, '25003', 'Hitarthi','Surat', '1234567882', '2023-08-30', 'active', 'Saving', 10000.00),
+    -> (5, '25004', 'Sujal','Surat', '1234567885', '2023-08-30', 'active', 'Saving', 10000.00);
+
+INSERT INTO Loan (loan_no, branch_id, account_holder_id, loan_amount, loan_type) VALUES
+    -> (1, 1, 1, 15000.00, 'personal'),
+    -> (2, 3, 4, 10000.00, 'personal'),
+    -> (3, 2, 5, 10000.00, 'personal');
+
+---------------------------------------------------------------------------------------------
+
+Intra-bank Transfer of $100 from Account A to Account B
+
+UPDATE Account_Holder
+    -> SET balance = balance - 100
+    -> WHERE account_no = '25001';
+
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+UPDATE Account_Holder
+    -> SET balance = balance + 100
+    -> WHERE account_no = '25002';
+
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+-------------------------------------------------------------------------------------------
+
+Fetch the Details of Account Holders from the Same City
+
+SELECT *
+    -> FROM Account_Holder ah1
+    -> WHERE EXISTS (
+    ->     SELECT 1
+    ->     FROM Account_Holder ah2
+    ->     WHERE ah1.city = ah2.city
+    ->     AND ah1.account_holder_id != ah2.account_holder_id
+    -> );
++-------------------+------------+---------------------+-----------+------------+-------------------------+----------------+--------------+-----------+
+| account_holder_id | account_no | account_holder_name | city      | contact    | date_of_account_created | account_status | account_type | balance   |
++-------------------+------------+---------------------+-----------+------------+-------------------------+----------------+--------------+-----------+
+|                 1 | 25001      | Kaushik             | Surat     | 1234567890 | 2023-07-20              | active         | savings      |  49800.00 |
+|                 2 | 25002      | Neel                | Ahmedabad | 1234567891 | 2023-05-20              | active         | Current      |  15200.00 |
+|                 3 | 25003      | Dhrumil             | Ahmedabad | 1234567881 | 2023-06-30              | active         | Saving       | 100000.00 |
+|                 4 | 25003      | Hitarthi            | Surat     | 1234567882 | 2023-08-30              | active         | Saving       |  10000.00 |
+|                 5 | 25004      | Sujal               | Surat     | 1234567885 | 2023-08-30              | active         | Saving       |  10000.00 |
++-------------------+------------+---------------------+-----------+------------+-------------------------+----------------+--------------+-----------+
+
+-------------------------------------------------------------------------------------------
+
+Fetch Account Number and Account Holder Name for Accounts Created After the 15th:
+
+ SELECT account_no, account_holder_name
+    -> FROM Account_Holder
+    -> WHERE DAY(date_of_account_created) > 15;
++------------+---------------------+
+| account_no | account_holder_name |
++------------+---------------------+
+| 25001      | Kaushik             |
+| 25002      | Neel                |
+| 25003      | Dhrumil             |
+| 25003      | Hitarthi            |
+| 25004      | Sujal               |
++------------+---------------------+
+
+---------------------------------------------------------------------------------------------
+
+Display City Name and Count of Branches:
+
+SELECT branch_city, COUNT(branch_id) AS Count_Branch
+    ->     FROM Bank
+    ->     GROUP BY branch_city;
++-------------+--------------+
+| branch_city | Count_Branch |
++-------------+--------------+
+| Surat       |            2 |
+| Allahabad   |            1 |
+| Ahmedabad   |            1 |
++-------------+--------------+
+
+---------------------------------------------------------------------------------------------
+
+Display Account Holder’s ID, Name, Branch ID, and Loan Amount:
+
+SELECT ah.account_holder_id, ah.account_holder_name, l.branch_id, l.loan_amount
+    -> FROM Account_Holder ah
+    -> JOIN Loan l ON ah.account_holder_id = l.account_holder_id;
++-------------------+---------------------+-----------+-------------+
+| account_holder_id | account_holder_name | branch_id | loan_amount |
++-------------------+---------------------+-----------+-------------+
+|                 1 | Kaushik             |         1 |    15000.00 |
+|                 4 | Hitarthi            |         3 |    10000.00 |
+|                 5 | Sujal               |         2 |    10000.00 |
++-------------------+---------------------+-----------+-------------+
+
+----------------------------------------------------------------------------------------------
