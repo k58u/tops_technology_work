@@ -1,0 +1,85 @@
+1.   Create Table Name : Student and Exam
+
+student table query :-
+
+create table student(
+-> roll_no int primary key,
+-> name varchar(50) not null,
+-> branch varchar(50));
+
+showing structure of student table :
+
+describe student;
+
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   | PRI | NULL    |       |
+| name    | varchar(50) | NO   |     | NULL    |       |
+| branch  | varchar(50) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+exam table query :-
+
+create table exam(
+-> Roll_no int,
+-> S_code varchar(10),
+-> marks int,
+-> P_code varchar(10),
+-> FOREIGN KEY (Roll_no) REFERENCES student(roll_no));
+
+showig structure of the exam table :
+
+describe exam;
+
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| Roll_no | int         | YES  | MUL | NULL    |       |
+| S_code  | varchar(10) | YES  |     | NULL    |       |
+| marks   | int         | YES  |     | NULL    |       |
+| P_code  | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+Inserting values in student table:
+
+insert into student (roll_no,name,branch) values
+-> (1,'Jay','Computer Science'),
+-> (2,'Suhani','Electronic and Com'),
+-> (3,'Kirti','Electronic and Com');
+
+showing data of student table:
+
+select * from student;
++---------+--------+--------------------+
+| roll_no | name   | branch             |
++---------+--------+--------------------+
+|       1 | Jay    | Computer Science   |
+|       2 | Suhani | Electronic and Com |
+|       3 | Kirti  | Electronic and Com |
++---------+--------+--------------------+
+
+Inserting values in exam table :
+
+insert into exam (Roll_no, S_code, marks, P_code) values
+->     (1, 'CS11', 50, 'CS'),
+->     (1, 'CS12', 60, 'CS'),
+->     (2, 'EC101', 66, 'EC'),
+->     (2, 'EC102', 70, 'EC'),
+->     (3, 'EC101', 45, 'EC'),
+->     (3, 'EC102', 50, 'EC');
+
+    
+showing data of exam table:
+ 
+select * from exam;
++---------+--------+-------+--------+
+| Roll_no | S_code | marks | P_code |
++---------+--------+-------+--------+
+|       1 | CS11   |    50 | CS     |
+|       1 | CS12   |    60 | CS     |
+|       2 | EC101  |    66 | EC     |
+|       2 | EC102  |    70 | EC     |
+|       3 | EC101  |    45 | EC     |
+|       3 | EC102  |    50 | EC     |
++---------+--------+-------+--------+

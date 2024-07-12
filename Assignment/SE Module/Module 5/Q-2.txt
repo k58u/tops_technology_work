@@ -1,0 +1,47 @@
+Create table given below: Employee and IncentiveTable 
+
+creating table of Employee query:
+
+create table Employee (
+-> Employee_id int primary key,
+-> First_name varchar(30),
+-> Last_name varchar(30),
+-> salary int,
+-> Joining_date date,
+-> Department varchar(40));
+
+Showing table of Employee: 
+
+describe Employee;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Employee_id  | int         | NO   | PRI | NULL    |       |
+| First_name   | varchar(30) | YES  |     | NULL    |       |
+| Last_name    | varchar(30) | YES  |     | NULL    |       |
+| salary       | int         | YES  |     | NULL    |       |
+| Joining_date | datetime    | YES  |     | NULL    |       |
+| Department   | varchar(40) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+
+creating table of incentive query:
+
+CREATE TABLE incentive (
+-> Employee_ref_id INT,
+-> Incentive_date DATE,
+-> Incentive_amount INT,
+-> foreign key (Employee_ref_id) references Employee(Employee_id));
+
+Showing table of Employee: 
+
+describe incentive;
++------------------+------+------+-----+---------+-------+
+| Field            | Type | Null | Key | Default | Extra |
++------------------+------+------+-----+---------+-------+
+| Employee_ref_id  | int  | YES  | MUL | NULL    |       |
+| Incentive_date   | date | YES  |     | NULL    |       |
+| Incentive_amount | int  | YES  |     | NULL    |       |
++------------------+------+------+-----+---------+-------+
+
+ insert into Employee(Employee_id,First_name,Last_name,salary,Joining_date,Department) values
+(1,'Jhon','Abraham',1000000,'2013-JAN-01 12.00.00AM','Banking');

@@ -1,0 +1,150 @@
+Q-1 What do you understand By Database.
+Ans:- Database Management System is a software or technology used to manage data from a database. 
+      DBMS provides many operations e.g. 
+      creating a database, Storing in the database, updating an existing database, delete from the database. 
+      DBMS is a system that enables you to store, modify and retrieve data in an organized way. 
+      It also provides security to the database. 
+
+    There are several types of databases, including:
+
+    * Relational Databases (e.g., MySQL, PostgreSQL)
+    * NoSQL Databases (e.g., MongoDB, Cassandra)
+    * In-Memory Databases (e.g., Redis)
+    * Graph Databases (e.g., Neo4j)
+        
+    Databases are used in various applications such as business management,web applications, 
+    scientific research, and big data analytics, ensuring data security, integrity, and efficient access.
+
+Q-2 What is Normalization ? 
+Ans:- Normalization :
+      Normalization is a process in database design to organize data to reduce redundancy 
+      and improve data integrity. The goal is to ensure that each piece of data is stored only once, 
+      minimizing duplication and making the database more efficient and easier to maintain.
+
+      Forms of Normalization:
+   
+      First Normal Form (1NF): Each column has atomic (indivisible) values,, single valued.
+   
+      Second Normal Form (2NF): In 1NF, and all non-key columns fully depend on the entire primary key, remove Partial dependency.
+   
+      Third Normal Form (3NF): In 2NF, and all columns depend only on the primary key,Transitive dependency and 2NF.
+   
+      Boyce-Codd Normal Form (BCNF): In 3NF, and every determinant is a candidate key.
+    
+      Benefits:
+      * Reduces Redundancy: Less duplicate data.
+      * Improves Integrity: Data consistency.
+      * Saves Space: Efficient storage.
+
+Q-3 What is Difference between DBMS and RDBMS?
+Ans:- DBMS (Database Management System):
+      
+      It's software that allows users to interact with databases. 
+      It provides tools for creating, storing, retrieving, updating, and managing data. DBMS can 
+      handle various types of data storage and retrieval methods, including hierarchical, network, object-oriented, 
+      and relational models. However, it doesn't enforce a specific structure or relationships between data.
+
+      RDBMS (Relational Database Management System): 
+      
+      RDBMS is a type of DBMS that organizes data into tables with rows and columns. It establishes 
+      relationships between these tables through keys (primary and foreign keys) and enforces rules 
+      like referential integrity. This structured approach follows the principles of the relational model 
+      proposed by E.F. Codd. RDBMS offers a standardized way to store, retrieve, and manage data efficiently. 
+      Popular examples include MySQL, Oracle Database, Microsoft SQL Server, and PostgreSQL.
+
+Q-4 What is MF Cod Rule of RDBMS Systems? 
+Ans:- The "MF Cod Rule" doesn't seem to be a standard term in the context of RDBMS. However, 
+      if you're referring to "Codd's Rules," named after Edgar F. Codd, the inventor of the 
+      relational model for databases, there are 12 such rules.
+
+      In short, Codd's Rules are a set of standards or criteria that a database management system must 
+      meet in order to be considered a true relational database management system (RDBMS). 
+      These rules ensure that the RDBMS follows the principles of the relational model, promoting data 
+      integrity, consistency, and efficiency
+
+Q-5 What do you understand By Data Redundancy?
+Ans:- Data redundancy happens when the same data is stored multiple times within a database. 
+      It can occur due to denormalization, poor  database design, integration of data from different 
+      sources, or human error during data entry. 
+      Redundancy leads to wasted storage space, inconsistencies, 
+      integrity issues, and complexity in data management. Solutions include normalization, data deletion, 
+      integration tools, regular maintenance, and enforcing referential integrity constraints.
+
+Q-6 What is DDL Interpreter? 
+Ans:- A DDL (Data Definition Language) interpreter is a component of a database management system (DBMS) 
+      that processes and executes DDL commands. These commands are used to define, modify, and manage 
+      the structure of the database schema, including tables, indexes, views, and constraints. The interpreter 
+      validates the syntax and semantics of DDL commands, executes them to create, modify, or delete 
+      database objects, and manages metadata related to these changes.
+
+Q-7 What is DML Compiler in SQL? 
+Ans:- In SQL, there isn't a component specifically referred to as a "DML Compiler." However, DML (Data Manipulation 
+      Language) statements are executed by the SQL engine or query processor. This engine interprets 
+      and compiles SQL queries and commands, including DML statements like INSERT, UPDATE, DELETE, and SELECT, 
+      into executable code. It then executes these commands to manipulate data in the database. Essentially, the 
+      SQL engine is responsible for understanding, organizing, optimizing, and executing DML statements to 
+      interact with and modify data stored in the database.
+
+Q-8 
+Ans:- SQL key constraints are rules applied to columns in a table that enforce data integrity and define the 
+      relationships between tables. There are several types of key constraints:
+
+      Primary Key Constraint: Ensures that each row in a table is uniquely identified by a column or combination 
+      of columns. For example, in a table of students, the StudentID column could be designated as the primary key.
+
+      Unique Constraint: Ensures that all values in a column or combination of columns are unique, but unlike 
+      a primary key, a unique constraint allows null values. For instance, a table of email addresses might 
+      have a unique constraint on the Email column.
+
+      Foreign Key Constraint: Defines a relationship between two tables by enforcing referential integrity. It 
+      ensures that values in a column (or a set of columns) of one table exist as values in another table's 
+      column (typically a primary key). For example, in a table of orders, the CustomerID column might be a foreign 
+      key referencing the CustomerID column in a table of customers.
+
+      Here's an example of defining these constraints in SQL:
+
+        CREATE TABLE Students (
+        StudentID INT PRIMARY KEY,
+        Name VARCHAR(50),
+        Email VARCHAR(100) UNIQUE
+        );
+
+    CREATE TABLE Orders (
+        OrderID INT PRIMARY KEY,
+        CustomerID INT,
+        OrderDate DATE,
+        FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+        );
+
+Q-9 What is save Point? How to create a save Point write a Query?
+Ans:- A savepoint is a marker in a transaction that allows you to roll back part of a transaction while 
+      leaving the rest of the changes intact. It's like saving a checkpoint in your progress.
+
+      To create a savepoint in SQL, you use the SAVEPOINT statement followed by a name for 
+      the savepoint. 
+      
+      Here's a simple example:
+      SAVEPOINT my_savepoint;
+
+Q-10 What is trigger and how to create a Trigger in SQL?
+Ans:- A trigger in SQL is like a set of instructions that automatically runs when a specified event occurs in 
+      the database. It's like setting up an alarm to respond to certain actions.
+
+      To create a trigger in SQL, you use the CREATE TRIGGER statement followed by the trigger name, the 
+      event that triggers the action, and the action to be performed. Here's a simplified example:
+
+      CREATE TRIGGER my_trigger
+      AFTER INSERT ON my_table
+      FOR EACH ROW
+      BEGIN
+      -- SQL statements to perform when the trigger is activated
+      INSERT INTO log_table (message) VALUES ('New row inserted');
+      END;
+      In this example:
+
+      my_trigger is the name of the trigger.
+
+      AFTER INSERT ON my_table specifies that the trigger activates after a new row is inserted into my_table.
+      FOR EACH ROW indicates that the trigger applies to each row affected by the event.
+      The SQL statements inside the BEGIN and END block define the action to be performed when the 
+      trigger is activated, such as inserting a log message into another table.

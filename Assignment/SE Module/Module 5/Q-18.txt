@@ -1,0 +1,14 @@
+Write a SQL statement that displays all the information about all 
+salespeople
+
+ select *from salesperson;
++------+-------------+------------+-----------+
+| SNo  | Name        | City      | commission |
++------+-------------+-----------+------------+
+| 5001 | James Hoog  | London    | 0.12       |
+| 5002 | Nail Knite  | Paris     | 0.13       |
+| 5003 | Lauson Hen  | San Josa  | 0.12       |
+| 5005 | Pit Alex    | London    | 0.11       |
+| 5006 | Mc Lyon     | Paris     | 0.14       |
+| 5007 | Paul Adam   | Rome      | 0.13       |
++------+-------------+-----------+------------+
