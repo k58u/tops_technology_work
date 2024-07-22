@@ -1,6 +1,6 @@
 # Write a Python function that takes a list of words and returns the length 
 # of the longest one. 
-list = ["apple", "mango", "lechi", "orange",]
+list = ["apple", "mango", "lechi", "orange"]
 
 max_len = 0
 
