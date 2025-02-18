@@ -1,0 +1,11 @@
+Bill No: 121
+Customer Name: kaushik
+Phone: 999999999
+
+Products:
+Bath Soap - 1 x 40
+Face Cream - 25 x 120
+Rice - 1 x 50
+Coke - 2 x 30
+
+Total: 3150
