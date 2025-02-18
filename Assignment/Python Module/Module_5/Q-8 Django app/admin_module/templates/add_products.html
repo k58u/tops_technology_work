@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <style>
+        /* General reset and base styles */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Navigation bar */
+        .nav {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            margin: 0 10px;
+            border: 1px solid #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .nav a:hover {
+            background-color: #0056b3;
+            color: #e2e2e2;
+        }
+
+        /* Form styling */
+        .form {
+            max-width: 600px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        .form input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .form input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        /* Table styling */
+        .table {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            border-collapse: collapse;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .table table {
+            width: 100%;
+            text-align: left;
+            border-collapse: collapse;
+        }
+
+        .table thead {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .table th, .table td {
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+        }
+
+        .table tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #fff;
+        }
+
+        .table a {
+            text-decoration: none;
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        .link {
+            border: none;
+        }
+
+        .green {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .green:hover {
+            background-color: #218838;
+        }
+
+        .red {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .red:hover {
+            background-color: #c82333;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .nav a {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .form, .table {
+                width: 90%;
+                margin: 10px auto;
+            }
+
+            .form input[type="text"], .form input[type="submit"] {
+                font-size: 14px;
+            }
+
+            .table th, .table td {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="nav">
+        <a href="">Home</a>
+        <a href="{% url 'log_out' %}">Logout</a>
+    </div>
+    <hr>
+
+    <!-- Form Section -->
+    <div class="form">
+        <form action="{% url 'add_product_name' %}" method="post">
+            {% csrf_token %}
+            <label for="product_id">Product ID:</label>
+            <input type="text" name="product_id" id="product_id">
+            
+            <label for="product_name">Product Name:</label>
+            <input type="text" name="product_name" id="product_name">
+            
+            <input type="submit" value="Add Product">
+        </form>
+    </div>
+    <div class="table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.p_id }}</td>
+                    <td>
+                        <a class="link" href="{% url 'product_detail' p_id=product.p_id %}">
+                            {{ product.p_name|upper }}
+                        </a>
+                    </td>
+                    <td>
+                        <a class="link green" href="{% url 'update_name' p_id=product.p_id %}">Edit Name</a>
+                        <a class="link red" href="{% url 'delete_name' p_id=product.p_id %}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
