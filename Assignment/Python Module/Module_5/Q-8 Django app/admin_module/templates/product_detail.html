@@ -5,137 +5,163 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details</title>
     <style>
-        a {
-            text-decoration: none;
-            font-size: larger;
-            padding: 10px 20px;
-            border-radius: 5px;
-            color: white;
-            background-color: #007bff;
-            margin-right: 10px;
-            display: inline-block;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+        /* Background Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
         }
 
-        a:hover {
-            background-color: #0056b3;
-            transform: scale(1.05); /* Slightly enlarge the button on hover */
-        }
-
+        /* Navigation Buttons */
         .nav {
+            text-align: center;
             margin-bottom: 20px;
-            text-align: center; /* Center the buttons */
         }
 
+        .nav a {
+            text-decoration: none;
+            font-size: 16px;
+            padding: 12px 24px;
+            border-radius: 6px;
+            color: white;
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            transition: all 0.3s ease-in-out;
+            font-weight: bold;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .nav a:hover {
+            background: linear-gradient(to right, #ff4b2b, #ff416c);
+            transform: translateY(-2px);
+        }
+
+        /* Form Styling with Glassmorphism */
         .form {
-            width: 60%;
-            margin: 0 auto;
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .form:hover {
+            transform: scale(1.02);
         }
 
         label {
             display: block;
             font-weight: bold;
             margin-top: 10px;
+            color: white;
+            text-align: left;
         }
 
+        /* Input Fields */
         input[type="text"], input[type="file"] {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-top: 5px;
             margin-bottom: 15px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            font-size: 16px;
+            border-radius: 6px;
+            border: none;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            outline: none;
+            transition: 0.3s;
         }
 
+        input[type="text"]:focus, input[type="file"]:focus {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Submit Button */
         input[type="submit"] {
             width: 100%;
-            padding: 10px;
-            background-color: #007bff;
+            padding: 12px;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease-in-out;
+            font-weight: bold;
         }
 
         input[type="submit"]:hover {
-            background-color: #0056b3;
+            background: linear-gradient(to right, #0072ff, #00c6ff);
+            transform: translateY(-2px);
         }
 
-        hr {
-            margin-top: 40px;
-        }
-
+        /* Link Styling */
         .link {
-            margin-top: 10px;
-            display: block;
-            text-align: center;
+            margin-top: 20px;
         }
 
-        .table-container {
-            max-height: 300px; /* or any value that fits your design */
-            overflow-y: auto; /* Enables vertical scrolling */
-            border: 1px solid #ccc; /* Adds a border around the container */
-        }
-        table {
-            width: 100%; /* Ensures the table fills the container */
-            border-collapse: collapse; /* Optional: removes gaps between cells */
+        .link a {
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 6px;
+            color: white;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            transition: all 0.3s ease-in-out;
+            display: inline-block;
+            font-weight: bold;
         }
 
-        th, td {
-            border: 1px solid black; /* Adds borders to table cells */
-            padding: 8px; /* Adds space inside cells */
-        }
-        thead th {
-            position: sticky;
-            top: 0; /* Fixes the header at the top of the table */
-            background-color: #f9f9f9; /* Gives a background color to the header for visibility */
+        .link a:hover {
+            background: linear-gradient(to right, #feb47b, #ff7e5f);
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
+
     <div class="nav">    
-        <a href="">Home</a>
+        <a href="#">Home</a>
         <a href="{% url 'log_out' %}">Logout</a>
     </div>
-    <hr>
 
     <div class="form">
         <form action="{% url 'product_detail' p_id=products.p_id %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
-            <label for="product_id">Product ID: </label>
-            <input type="text" name="p_id" value="{{products.p_id}}" disabled><br>
+            <label for="product_id">Product ID:</label>
+            <input type="text" name="p_id" value="{{ products.p_id }}" disabled>
 
-            <label for="product_name">Product Name: </label>
-            <input type="text" name="product_name" value="{{products.p_name}}" disabled><br>
+            <label for="product_name">Product Name:</label>
+            <input type="text" name="product_name" value="{{ products.p_name }}" disabled>
 
-            <label for="price">Price: </label>
-            <input type="text" name="price"><br>
+            <label for="price">Price:</label>
+            <input type="text" name="price">
 
-            <label for="image">Product Image: </label>
-            <input type="file" name="image" accept="image/*"><br>
+            <label for="image">Product Image:</label>
+            <input type="file" name="image" accept="image/*">
 
-            <label for="model">Model: </label>
-            <input type="text" name="model"><br>
+            <label for="model">Model:</label>
+            <input type="text" name="model">
 
-            <label for="ram">RAM: </label>
-            <input type="text" name="ram"><br>
+            <label for="ram">RAM:</label>
+            <input type="text" name="ram">
 
-            <input type="submit" value="Submit"><br>
+            <input type="submit" value="Submit">
         </form>
     </div>
 
-    <hr>
-    <br>
     <div class="link">
         <a href="{% url 'show_details_view' %}">Show Details</a>
     </div>
+
 </body>
 </html>

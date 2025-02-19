@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from .models import auth_admin, Product_name, product_details,ProductMst,ProductSubCat,product_manager
 from django.http import Http404
+from django.views.decorators.csrf import csrf_exempt
 
 
 def is_logged_in(func):

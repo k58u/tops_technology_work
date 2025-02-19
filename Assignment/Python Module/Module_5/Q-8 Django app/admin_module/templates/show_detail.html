@@ -5,95 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Show Details</title>
     <style>
-        a {
-            text-decoration: none;
-            font-size: larger;
-            border: 1px solid gray;
-            padding: 3px;
-            border-radius: 5px;
-            color: blue;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
         }
-        .link {
-            border: none;
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        .green {
-            color: green;
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
         }
-        .red {
-            color: red;
-        }
+
         .table-container {
-            max-height: 300px; /* Adjust based on your design */
-            overflow-y: auto; /* Enables vertical scrolling */
-            border: 1px solid #ccc; /* Adds a border around the container */
-            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            border-radius: 8px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
         }
 
-        thead th {
+        th {
+            background-color: #007bff;
+            color: white;
             position: sticky;
             top: 0;
-            background-color: #f9f9f9;
-            z-index: 1; /* Makes sure the header stays on top */
         }
 
-        .image {
-            display: flex;
-            justify-content: center;
-        }
-
-        img {
+        td img {
             height: 50px;
             width: auto;
-            object-fit: contain; /* Ensures the image maintains aspect ratio */
+            border-radius: 5px;
+        }
+
+        .actions a {
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .edit {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .edit:hover {
+            background-color: #218838;
+        }
+
+        .delete {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .delete:hover {
+            background-color: #c82333;
         }
     </style>
 </head>
 <body>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Price</th>
-                    <th>Image</th>
-                    <th>Model</th>
-                    <th>RAM</th>
-                    <th colspan="2">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for detail in details %}
+    <div class="container">
+        <h2>Product Details</h2>
+        <div class="table-container">
+            <table>
+                <thead>
                     <tr>
-                        <td>{{detail.product_name}}</td>
-                        <td>{{detail.price}}</td>
-                        <td>
-                            <div class="image">
-                                <img src="{{ detail.image.url }}" alt="Product Image">
-                            </div>
-                        </td>
-                        <td>{{detail.model}}</td>
-                        <td>{{detail.ram}}</td>
-                        <td>
-                            <a class="link green" href="{% url 'update_detail' id=detail.id %}">Edit</a>
-                        </td>
-                        <td>
-                            <a class="link red" href="{% url 'delete_detail' id=detail.id %}">Delete</a>
-                        </td>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Image</th>
+                        <th>Model</th>
+                        <th>RAM</th>
+                        <th colspan="2">Actions</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for detail in details %}
+                        <tr>
+                            <td>{{ detail.product_name }}</td>
+                            <td>${{ detail.price }}</td>
+                            <td><img src="{{ detail.image.url }}" alt="Product Image"></td>
+                            <td>{{ detail.model }}</td>
+                            <td>{{ detail.ram }} GB</td>
+                            <td class="actions">
+                                <a class="edit" href="{% url 'update_detail' id=detail.id %}">Edit</a>
+                            </td>
+                            <td class="actions">
+                                <a class="delete" href="{% url 'delete_detail' id=detail.id %}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>

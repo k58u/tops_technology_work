@@ -4,109 +4,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details</title>
-<style>
-        a{
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f7fa;
+            text-align: center;
+        }
+
+        .nav {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .nav a {
             text-decoration: none;
-            font-size: larger;
-            border: 1px solid gray;
-            padding: 3px;
+            font-size: 18px;
+            padding: 8px 15px;
             border-radius: 5px;
-            color: blue;
+            background-color: #007bff;
+            color: white;
+            margin-left: 10px;
+            display: inline-block;
         }
 
-        .link{
+        .nav a:hover {
+            background-color: #0056b3;
+        }
+
+        .form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            margin-top: 15px;
+            padding: 10px;
+            width: 100%;
+            background-color: #28a745;
+            color: white;
             border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
         }
 
-        .green{
-            color: green;
+        input[type="submit"]:hover {
+            background-color: #218838;
         }
 
-        .red{
-            color: red;
+        .details-link {
+            display: block;
+            margin-top: 20px;
+            padding: 10px;
+            text-decoration: none;
+            background-color: #ffc107;
+            color: black;
+            border-radius: 5px;
+            font-size: 16px;
         }
 
-        .table-container {
-            max-height: 300px; /* or any value that fits your design */
-            overflow-y: auto; /* Enables vertical scrolling */
-            border: 1px solid #ccc; /* Adds a border around the container */
-        }
-        
-        table {
-            border-collapse: collapse; /* Optional: removes gaps between cells */
-            width: 100%; /* Ensures the table fills the container */
-        }
-        
-        th, td {
-            border: 1px solid black; /* Adds borders to table cells */
-            padding: 8px; /* Adds space inside cells */
-        }
-        
-        thead th {
-            position: sticky;
-            top: 0; /* Fixes the header at the top of the table */
-            background-color: #f9f9f9; /* Gives a background color to the header for visibility */
+        .details-link:hover {
+            background-color: #e0a800;
         }
     </style>
 </head>
 <body>
     <div class="nav">    
-        <a href="">home</a>
-        <a href="{% url 'log_out' %}">logout</a>
+        <a href="#">Home</a>
+        <a href="{% url 'log_out' %}">Logout</a>
     </div>
-    <hr>
 
     <div class="form">
+        <h2>Product Details</h2>
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
             {% for p in product %}  
+            <label for="product_id">Product ID:</label>
+            <input type="text" name="p_id" value="{{ p.p_id }}" disabled>
 
-            <label for="product_id">Product ID : </label><br>
-            <input type="text" name="p_id" value="{{p.p_id}}" disabled><br>
-
-
-            <label for="product_name">Product Name : </label><br>
-            <input type="text" name="product_name" value="{{p.p_name}}"  disabled><br>
-
+            <label for="product_name">Product Name:</label>
+            <input type="text" name="product_name" value="{{ p.p_name }}" disabled>
             {% endfor %}
             
-            <label for="price">Price : </label><br>
-            <input type="text" name="price" value="{{ detail.price }}"><br>
+            <label for="price">Price:</label>
+            <input type="text" name="price" value="{{ detail.price }}">
             
+            <label for="image">Product Image:</label>
+            <input type="file" name="image" accept="image/*">
             
-            <label for="image">Product image : </label><br>
-            <input type="file" name="image" accept="image/*" value="{{detail.image}}"><br>
-            
-            
-            <label for="model">Model : </label><br>
-            <input type="text" name="model" value="{{detail.model}}"><br>
+            <label for="model">Model:</label>
+            <input type="text" name="model" value="{{ detail.model }}">
 
-            <label for="ram">RAM : </label><br>
-            <input type="text" name="ram" value="{{detail.ram}}"><br>
-            <input type="submit"><br>
+            <label for="ram">RAM:</label>
+            <input type="text" name="ram" value="{{ detail.ram }}">
+            
+            <input type="submit" value="Update Product">
         </form>
     </div>
-    <hr>
-    <br>
-    <a href="{% url 'show_details_view' %}">show details</a>
+    
+    <a href="{% url 'show_details_view' %}" class="details-link">Show Details</a>
 </body>
 </html>
-
-{%comment%}
-{% url 'show_details_view' %}
-{%endcomment%}
-
-
-
-
-
-
-
-
-
-
-
-
-
-

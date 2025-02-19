@@ -3,196 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product</title>
+    <title>Manage Products</title>
     <style>
-        /* General reset and base styles */
         body {
             font-family: Arial, sans-serif;
-            line-height: 1.6;
+            background-color: #f4f6f9;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
             color: #333;
         }
 
-        /* Navigation bar */
-        .nav {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
+        .navbar {
+            background: #007bff;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+        }
+
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .panel {
+            width: 50%;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
 
-        .nav a {
-            text-decoration: none;
-            color: #fff;
-            font-size: 16px;
-            margin: 0 10px;
-            border: 1px solid #fff;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .nav a:hover {
-            background-color: #0056b3;
-            color: #e2e2e2;
-        }
-
-        /* Form styling */
-        .form {
-            max-width: 600px;
-            margin: 30px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .form label {
-            font-size: 14px;
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: inline-block;
-        }
-
-        .form input[type="text"] {
-            width: 100%;
+        .panel input[type="text"] {
+            width: 90%;
             padding: 10px;
-            margin-bottom: 15px;
+            margin: 10px 0;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 5px;
         }
 
-        .form input[type="submit"] {
-            background-color: #28a745;
+        .panel input[type="submit"] {
+            background: #28a745;
             color: white;
             padding: 10px 15px;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
+            transition: 0.3s;
         }
 
-        .form input[type="submit"]:hover {
-            background-color: #218838;
+        .panel input[type="submit"]:hover {
+            background: #218838;
         }
 
-        /* Table styling */
-        .table {
-            max-width: 800px;
+        .table-container {
+            width: 90%;
             margin: 20px auto;
-            background: #fff;
-            border-collapse: collapse;
-            border-radius: 8px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
         }
 
-        .table table {
+        table {
             width: 100%;
-            text-align: left;
             border-collapse: collapse;
         }
 
-        .table thead {
-            background-color: #007bff;
-            color: #fff;
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
         }
 
-        .table th, .table td {
-            padding: 12px 15px;
-            border: 1px solid #ccc;
+        thead {
+            background: #007bff;
+            color: white;
         }
 
-        .table tbody tr:nth-child(odd) {
-            background-color: #f9f9f9;
-        }
-
-        .table tbody tr:nth-child(even) {
-            background-color: #fff;
-        }
-
-        .table a {
+        .btn {
+            padding: 6px 12px;
             text-decoration: none;
-            font-size: 14px;
-            padding: 5px 10px;
             border-radius: 4px;
-            margin-right: 5px;
+            font-size: 14px;
         }
 
-        .link {
-            border: none;
+        .edit {
+            background: #ffc107;
+            color: #222;
         }
 
-        .green {
-            background-color: #28a745;
-            color: #fff;
+        .edit:hover {
+            background: #e0a800;
         }
 
-        .green:hover {
-            background-color: #218838;
+        .delete {
+            background: #dc3545;
+            color: white;
         }
 
-        .red {
-            background-color: #dc3545;
-            color: #fff;
-        }
-
-        .red:hover {
-            background-color: #c82333;
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .nav a {
-                font-size: 14px;
-                padding: 8px;
-            }
-
-            .form, .table {
-                width: 90%;
-                margin: 10px auto;
-            }
-
-            .form input[type="text"], .form input[type="submit"] {
-                font-size: 14px;
-            }
-
-            .table th, .table td {
-                font-size: 14px;
-            }
+        .delete:hover {
+            background: #bd2130;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <div class="nav">
-        <a href="">Home</a>
-        <a href="{% url 'log_out' %}">Logout</a>
+    <div class="navbar">
+        <a href="#">Dashboard</a>
+        <a href="{% url 'log_out' %}">Sign Out</a>
     </div>
-    <hr>
 
-    <!-- Form Section -->
-    <div class="form">
+    <div class="panel">
+        <h2>Product Details</h2>
         <form action="{% url 'add_product_name' %}" method="post">
             {% csrf_token %}
             <label for="product_id">Product ID:</label>
             <input type="text" name="product_id" id="product_id">
-            
             <label for="product_name">Product Name:</label>
             <input type="text" name="product_name" id="product_name">
-            
             <input type="submit" value="Add Product">
         </form>
     </div>
-    <div class="table">
+
+    <div class="table-container">
+        <h2 style="text-align:center;">Product List</h2>
         <table>
             <thead>
                 <tr>
                     <th>Product ID</th>
                     <th>Product Name</th>
-                    <th>Action</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -200,13 +149,11 @@
                 <tr>
                     <td>{{ product.p_id }}</td>
                     <td>
-                        <a class="link" href="{% url 'product_detail' p_id=product.p_id %}">
-                            {{ product.p_name|upper }}
-                        </a>
+                        <a class="btn" href="{% url 'product_detail' p_id=product.p_id %}">{{ product.p_name|title }}</a>
                     </td>
                     <td>
-                        <a class="link green" href="{% url 'update_name' p_id=product.p_id %}">Edit Name</a>
-                        <a class="link red" href="{% url 'delete_name' p_id=product.p_id %}">Delete</a>
+                        <a class="btn edit" href="{% url 'update_name' p_id=product.p_id %}">Edit</a>
+                        <a class="btn delete" href="{% url 'delete_name' p_id=product.p_id %}">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}
