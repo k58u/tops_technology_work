@@ -1,0 +1,43 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background-image: url('../images/addcourse.jpg');
+  background-size: contain; /* Adjust as needed */
+  background-position: center;
+  font-family: Arial, sans-serif;
+  color: #fff; /* Text color */
+  overflow-y: hidden;
+}
+
+.wrapper {
+    background: transparent;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    width: 80%; /* Adjust this value to your liking */
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h2{
+    color: green;
+    text-align: center;
+}
+
+th {
+    background: green;
+}
+
+td{
+color:black;
+}
+
+input[type="submit"]:hover {
+    background-color: green;
+}
